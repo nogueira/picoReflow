@@ -1,5 +1,8 @@
 #!/usr/bin/python
-import RPi.GPIO as GPIO
+'import RPi.GPIO as GPIO
+from pyA20.gpio import gpio
+from pyA20.gpio import port
+
 import time
 
 class MAX6675(object):
