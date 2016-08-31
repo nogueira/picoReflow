@@ -31,13 +31,19 @@ class MAX6675(object):
         self.board = board
 
         # Initialize needed GPIO
-        GPIO.setmode(self.board)
-        GPIO.setup(self.cs_pin, GPIO.OUT)
-        GPIO.setup(self.clock_pin, GPIO.OUT)
-        GPIO.setup(self.data_pin, GPIO.IN)
-
-        # Pull chip select high to make chip inactive
-        GPIO.output(self.cs_pin, GPIO.HIGH)
+        #GPIO.setmode(self.board)
+		gpio.init()
+        #GPIO.setup(self.cs_pin, GPIO.OUT)
+		gpio.setcfg(self.cs_pin, gpio.OUTPUT)
+		
+        #GPIO.setup(self.clock_pin, GPIO.OUT)
+		gpio.setcfg(self.clock_pin, gpio.OUTPUT)
+        
+		#GPIO.setup(self.data_pin, GPIO.IN)
+		gpio.setcfg(self.data_pin, gpio.OUTPUT)
+		
+        # Pull chip select high to make chip inactive 
+        gpio.output(self.cs_pin, gpio.HIGH)
 
     def get(self):
         '''Reads SPI bus and returns current value of thermocouple.'''
@@ -49,18 +55,18 @@ class MAX6675(object):
         '''Reads 16 bits of the SPI bus & stores as an integer in self.data.'''
         bytesin = 0
         # Select the chip
-        GPIO.output(self.cs_pin, GPIO.LOW)
+        gpio.output(self.cs_pin, gpio.LOW)
         # Read in 16 bits
         for i in range(16):
-            GPIO.output(self.clock_pin, GPIO.LOW)
+            gpio.output(self.clock_pin, gpio.LOW)
             time.sleep(0.001)
             bytesin = bytesin << 1
-            if (GPIO.input(self.data_pin)):
+            if (gpio.input(self.data_pin)):
                 bytesin = bytesin | 1
-            GPIO.output(self.clock_pin, GPIO.HIGH)
+            gpio.output(self.clock_pin, gpio.HIGH)
         time.sleep(0.001)
         # Unselect the chip
-        GPIO.output(self.cs_pin, GPIO.HIGH)
+        gpio.output(self.cs_pin, gpio.HIGH)
         # Save data
         self.data = bytesin
 
@@ -96,8 +102,8 @@ class MAX6675(object):
 
     def cleanup(self):
         '''Selective GPIO cleanup'''
-        GPIO.setup(self.cs_pin, GPIO.IN)
-        GPIO.setup(self.clock_pin, GPIO.IN)
+        gpio.setcfg(self.cs_pin, gpio.INPUT)
+        gpio.setcfg(self.clock_pin, gpio.INPUT)
 
 class MAX6675Error(Exception):
      def __init__(self, value):
