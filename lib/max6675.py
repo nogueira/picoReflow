@@ -25,7 +25,7 @@ class MAX6675(object):
         '''
         self.cs_pin = port.PA9 #cs_pin
         self.clock_pin = port.PA8 #clock_pin
-        self.data_pin = port.PA20 #data_pin
+        self.data_pin = port.PA21 #data_pin
         self.units = units
         self.data = None
         #self.board = board
@@ -40,7 +40,7 @@ class MAX6675(object):
         gpio.setcfg(self.clock_pin, gpio.OUTPUT)
         
         #GPIO.setup(self.data_pin, GPIO.IN)
-        gpio.setcfg(self.data_pin, gpio.OUTPUT)
+        gpio.setcfg(self.data_pin, gpio.INPUT)
 
         # Pull chip select high to make chip inactive 
         gpio.output(self.cs_pin, gpio.HIGH)
