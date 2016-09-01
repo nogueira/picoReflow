@@ -8,9 +8,6 @@ import time
 class MAX6675(object):
     '''Python driver for [MAX6675 Cold-Junction Compensated Thermocouple-to-Digital Converter](http://www.adafruit.com/datasheets/MAX6675.pdf)
      Requires:
-     - The [GPIO Library](https://code.google.com/p/raspberry-gpio-python/) (Already on most Raspberry Pi OS builds)
-     - A [Raspberry Pi](http://www.raspberrypi.org/)
-
     '''
     def __init__(self, cs_pin, clock_pin, data_pin, units = "c"):
         '''Initialize Soft (Bitbang) SPI bus
@@ -20,7 +17,6 @@ class MAX6675(object):
         - clock_pin: Clock (SCLK / SCK) pin (Any GPIO)
         - data_pin:  Data input (SO / MOSI) pin (Any GPIO)
         - units:     (optional) unit of measurement to return. ("c" (default) | "k" | "f")
-        - board:     (optional) pin numbering method as per RPi.GPIO library (GPIO.BCM (default) | GPIO.BOARD)
 
         '''
         self.cs_pin = cs_pin #port.PA9 
@@ -28,13 +24,12 @@ class MAX6675(object):
         self.data_pin = data_pin #port.PA21 #
         self.units = units
         self.data = None
-        #self.board = board
 
         # Initialize needed GPIO
         #GPIO.setmode(self.board)
         gpio.init()
         #GPIO.setup(self.cs_pin, GPIO.OUT)
-        gpio.setcfg(self.cs_pin, gpio.OUTPUT)
+        gpio.setcfg(cs_pin, gpio.OUTPUT)
 
         #GPIO.setup(self.clock_pin, GPIO.OUT)
         gpio.setcfg(self.clock_pin, gpio.OUTPUT)
