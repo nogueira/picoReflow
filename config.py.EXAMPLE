@@ -40,9 +40,9 @@ max31855 = 0
 max6675 = 1
 
 ### Thermocouple I2C Connection
-gpio_sensor_cs = 23
-gpio_sensor_clock = 22
-gpio_sensor_data = 11
+gpio_sensor_cs = port.PA9
+gpio_sensor_clock = port.PA8
+gpio_sensor_data = port.PA21
 
 
 ########################################################################
