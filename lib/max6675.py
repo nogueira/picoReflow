@@ -69,7 +69,7 @@ class MAX6675(object):
         # Unselect the chip
         gpio.output(self.cs_pin, gpio.HIGH)
         # Save data
-        self.data = 54 #bytesin
+        self.data = 34 #bytesin
 
     def checkErrors(self, data_16 = None):
         '''Checks errors on bit D2'''
