@@ -19,9 +19,9 @@ class MAX6675(object):
         - units:     (optional) unit of measurement to return. ("c" (default) | "k" | "f")
 
         '''
-        self.cs_pin = cs_pin #port.PA9 
-        self.clock_pin = clock_pin #port.PA8 
-        self.data_pin = data_pin #port.PA21 #
+        self.cs_pin = port.PA9 #cs_pin 
+        self.clock_pin = port.PA8 #clock_pin  
+        self.data_pin = port.PA21 #data_pin 
         self.units = units
         self.data = None
 
@@ -29,7 +29,7 @@ class MAX6675(object):
         #GPIO.setmode(self.board)
         gpio.init()
         #GPIO.setup(self.cs_pin, GPIO.OUT)
-        gpio.setcfg(cs_pin, gpio.OUTPUT)
+        gpio.setcfg(self.cs_pin, gpio.OUTPUT)
 
         #GPIO.setup(self.clock_pin, GPIO.OUT)
         gpio.setcfg(self.clock_pin, gpio.OUTPUT)
