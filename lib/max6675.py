@@ -23,9 +23,9 @@ class MAX6675(object):
         - board:     (optional) pin numbering method as per RPi.GPIO library (GPIO.BCM (default) | GPIO.BOARD)
 
         '''
-        self.cs_pin = cs_pin
-        self.clock_pin = clock_pin
-        self.data_pin = data_pin
+        self.cs_pin = port.PA9 #cs_pin
+        self.clock_pin = port.PA8 #clock_pin
+        self.data_pin = port.PA21 #data_pin
         self.units = units
         self.data = None
         #self.board = board
