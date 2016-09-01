@@ -1,7 +1,7 @@
 picoReflow
 ==========
 
-Turns a Raspberry Pi into a cheap, universal & web-enabled Reflow Oven Controller.
+Turns a NanoPi M1 into a cheap, universal & web-enabled Reflow Oven Controller.
 Of course, since it is basically just a robot sensing temperature and controlling
 environmental agitators (heating/cooling) you can use it as inspiration / basis
 when you're in need of a PID based temperature controller for your project.
@@ -17,7 +17,7 @@ Don't forget to share and drop a link, when you do :)
 
 ## Hardware
 
-  * Raspberry Pi (Rev 2B)
+  * NanoPi M1
   * MAX 31855/6675 Cold-Junction K-Type Thermocouple
   * GPIO driven Solid-State-Relays/MOSFETs
 
@@ -59,7 +59,7 @@ RPi.GPIO with the default installation.
 
 ### Clone repo
 
-    $ git clone https://github.com/apollo-ng/picoReflow.git
+    $ git clone https://github.com/nogueira/picoReflow.git
     $ cd picoReflow
 
 ## Configuration
