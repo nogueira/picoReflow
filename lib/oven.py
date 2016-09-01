@@ -10,14 +10,14 @@ log = logging.getLogger(__name__)
 
 try:
     if (config.max31855 == config.max6675):
-    	log.error("choose (only) one converter IC")
-	exit()
+        log.error("choose (only) one converter IC")
+        exit()
     if config.max31855:
-    	from max31855 import MAX31855, MAX31855Error
-    	log.info("import MAX31855")
+        from max31855 import MAX31855, MAX31855Error
+        log.info("import MAX31855")
     if config.max6675:
-   	from max6675 import MAX6675, MAX6675Error
-    	log.info("import MAX6675")
+        from max6675 import MAX6675, MAX6675Error
+        log.info("import MAX6675")
     sensor_available = True
 except ImportError:
     log.warning("Could not initialize temperature sensor, using dummy values!")
@@ -25,16 +25,17 @@ except ImportError:
 
 try:
     #import RPi.gpio as gpio
-	from pyA20.gpio import gpio
-	from pyA20.gpio import port
-	
+    from pyA20.gpio import gpio
+    from pyA20.gpio import port
+
     #gpio.setmode(gpio.BCM)
     #gpio.setwarnings(False)
-	gpio.init()
-    gpio.setcfg(config.gpio_heat, gpio.OUT)
-    gpio.setcfg(config.gpio_cool, gpio.OUT)
-    gpio.setcfg(config.gpio_air, gpio.OUT)
-    gpio.setcfg(config.gpio_door, gpio.INPUT, pull_up_down=gpio.PULLDOW)
+    gpio.init()
+    gpio.setcfg(config.gpio_heat, gpio.OUTPUT)
+    gpio.setcfg(config.gpio_cool, gpio.OUTPUT)
+    gpio.setcfg(config.gpio_air, gpio.OUTPUT)
+    gpio.setcfg(config.gpio_door, gpio.INPUT)
+    gpio.pullup(config.gpio_door, gpio.PULLDOWN)
     gpio_available = True
 except ImportError:
     msg = "Could not initialize gpios, oven operation will only be simulated!"
@@ -57,9 +58,7 @@ class Oven (threading.Thread):
         if sensor_available:
             self.temp_sensor = TempSensorReal(self.time_step)
         else:
-            self.temp_sensor = TempSensorSimulate(self,
-                                                  self.time_step,
-                                                  self.time_step)
+            self.temp_sensor = TempSensorSimulate(self, self.time_step, self.time_step)
         self.temp_sensor.start()
         self.start()
 
@@ -149,14 +148,14 @@ class Oven (threading.Thread):
             self.heat = 1.0
             if gpio_available:
                if config.heater_invert:
-               	 gpio.output(config.gpio_heat, gpio.LOW)
+                 gpio.output(config.gpio_heat, gpio.LOW)
                else:
                  gpio.output(config.gpio_heat, gpio.HIGH)
         else:
             self.heat = 0.0
             if gpio_available:
                if config.heater_invert:
-               	 gpio.output(config.gpio_heat, gpio.HIGH)
+                 gpio.output(config.gpio_heat, gpio.HIGH)
                else:
                  gpio.output(config.gpio_heat, gpio.LOW)
 
@@ -213,15 +212,15 @@ class TempSensorReal(TempSensor):
     def __init__(self, time_step):
         TempSensor.__init__(self, time_step)
         if config.max6675:
-        	log.info("init MAX6675")
-        	self.thermocouple = MAX6675(config.gpio_sensor_cs,
+            log.info("init MAX6675")
+            self.thermocouple = MAX6675(config.gpio_sensor_cs,
                                      config.gpio_sensor_clock,
                                      config.gpio_sensor_data,
                                      config.temp_scale)
 
         if config.max31855:
-        	log.info("init MAX31855")
-        	self.thermocouple = MAX31855(config.gpio_sensor_cs,
+            log.info("init MAX31855")
+            self.thermocouple = MAX31855(config.gpio_sensor_cs,
                                      config.gpio_sensor_clock,
                                      config.gpio_sensor_data,
                                      config.temp_scale)

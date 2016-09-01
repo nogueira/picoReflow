@@ -32,16 +32,16 @@ class MAX6675(object):
 
         # Initialize needed GPIO
         #GPIO.setmode(self.board)
-		gpio.init()
+        gpio.init()
         #GPIO.setup(self.cs_pin, GPIO.OUT)
-		gpio.setcfg(self.cs_pin, gpio.OUTPUT)
-		
+        gpio.setcfg(self.cs_pin, gpio.OUTPUT)
+
         #GPIO.setup(self.clock_pin, GPIO.OUT)
-		gpio.setcfg(self.clock_pin, gpio.OUTPUT)
+        gpio.setcfg(self.clock_pin, gpio.OUTPUT)
         
-		#GPIO.setup(self.data_pin, GPIO.IN)
-		gpio.setcfg(self.data_pin, gpio.OUTPUT)
-		
+        #GPIO.setup(self.data_pin, GPIO.IN)
+        gpio.setcfg(self.data_pin, gpio.OUTPUT)
+
         # Pull chip select high to make chip inactive 
         gpio.output(self.cs_pin, gpio.HIGH)
 
@@ -114,9 +114,9 @@ class MAX6675Error(Exception):
 if __name__ == "__main__":
 
     # default example
-    cs_pin = 24
-    clock_pin = 23
-    data_pin = 22
+    cs_pin = 23
+    clock_pin = 22
+    data_pin = 11
     units = "c"
     thermocouple = MAX6675(cs_pin, clock_pin, data_pin, units)
     running = True
