@@ -72,7 +72,7 @@ All parameters are defined in config.py, just copy the example and review/change
 
 ### Server Startup
 
-    $ ./picoReflowd.py
+    $ ./picoreflowd.py
 
 ### Client Access
 
