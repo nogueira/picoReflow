@@ -48,14 +48,14 @@ successfully on any other OS, please update this:
     $ pip install ez-setup
     $ pip install greenlet bottle gevent gevent-websocket
 
-#### Raspberry PI deployment
+#### NanpPi M1 deployment
 
 If you want to deploy the code on a PI for production:
 
-    $ pip install RPi.GPIO
+    $ git CLONE https://github.com/duxingkei33/orangepi_PC_gpio_pyH3.git
+    $ cd orangepi_PC_gpio_pyH3
+    $ python setup.py install
 
-This **only applies to non-Raspbian installations**, since Raspbian ships
-RPi.GPIO with the default installation.
 
 ### Clone repo
 
