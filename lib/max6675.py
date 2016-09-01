@@ -25,7 +25,7 @@ class MAX6675(object):
         '''
         self.cs_pin = port.PA9 #cs_pin
         self.clock_pin = port.PA8 #clock_pin
-        self.data_pin = port.PA21 #data_pin
+        self.data_pin = port.PA20 #data_pin
         self.units = units
         self.data = None
         #self.board = board
@@ -69,7 +69,7 @@ class MAX6675(object):
         # Unselect the chip
         gpio.output(self.cs_pin, gpio.HIGH)
         # Save data
-        self.data = 34 #bytesin
+        self.data = bytesin
 
     def checkErrors(self, data_16 = None):
         '''Checks errors on bit D2'''
