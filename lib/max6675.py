@@ -64,6 +64,7 @@ class MAX6675(object):
             if (gpio.input(self.data_pin)):
                 bytesin = bytesin | 1
             gpio.output(self.clock_pin, gpio.HIGH)
+            time.sleep(0.001)
         time.sleep(0.001)
         # Unselect the chip
         gpio.output(self.cs_pin, gpio.HIGH)
